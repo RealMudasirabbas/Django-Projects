@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}Django and Tweet{% endblock %}
+
+{% block content %}
+<h1 class="text-center mt-4">Tweet Page</h1>
+
+<h1 class="text-center mt-4">
+    {% if form.instance.pk %}
+    Edit Tweet
+    {% else %}
+    Create Tweet
+    {% endif %}</h1>
+
+    <form method="post" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-warning" type="submit">Tweet</button>
+    </form>
+    <a class="btn btn-primary" href="{% url "tweet_list" %}">Back to Tweet List</a>
+
+{% endblock %}

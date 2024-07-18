@@ -1,0 +1,5 @@
+.venv
+tweet_app/db.sqlite3
+tweet_app/media/photos/IMG-20230718-WA0005.jpg
+tweet_app/media/photos/IMG-20230718-WA0009.jpg
+tweet_app/media/photos/Profile_pic.jpeg
