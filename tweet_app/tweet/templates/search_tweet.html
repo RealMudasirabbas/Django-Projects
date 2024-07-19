@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}Django and Tweet{% endblock %}
+
+{% block content %}
+<h1 class="text-center mt-4">Your Search Results</h1>
+
+<div class="container">
+    {% if tweets %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for tweet in tweets %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    {% if tweet.photo %}
+                    <img src="{{ tweet.photo.url }}" class="card-img-top" alt="{{ tweet.user.username }}">
+                    
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ tweet.user.username }}</h5>
+                        <p class="card-text">{{ tweet.text }}</p>
+                        {% if tweet.user == user %}
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="{% url 'edit_tweet' tweet.id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'delete_tweet' tweet.id %}" class="btn btn-danger">Delete</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+    <p class="text-center mt-4">No tweets found.</p>
+    {% endif %}
+</div>
+{% endblock %}

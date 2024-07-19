@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 
 from .models import Tweet
-from .forms import TweetForm, UserRegistrationForm
+from .forms import TweetForm, UserRegistrationForm,SearchForm
 # Create your views here.
 
 
@@ -51,6 +51,20 @@ def delete_tweet(request,tweet_id):
         return redirect('tweet_list')
     
     return render(request,'tweet_confirm_delete.html',{'tweet':tweet})
+
+
+@login_required
+def search_tweet(request):
+    if request.method == "GET":
+        form = SearchForm(request.GET)
+        tweets = []
+        if form.is_valid():
+            search = form.cleaned_data["search"]
+            tweets = Tweet.objects.filter(text__icontains=search)
+    return render(request,'search_tweet.html',{'form':form,'tweets':tweets})
+    
+
+
 
 
 def register(request):

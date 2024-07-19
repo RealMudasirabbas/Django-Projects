@@ -3,25 +3,26 @@
 {% block title %}Django and Tweet{% endblock %}
 
 {% block content %}
-<h1 class="text-center mt-4">Tweet Page</h1>
-<a class="btn btn-primary" href="{% url "create_tweet" %}">Create a tweet</a>
+<h1 class="text-center mt-4 mb-4">Tweet Page</h1>
+<a class="btn btn-primary mb-3" href="{% url 'create_tweet' %}">Create a Tweet</a>
 
-<div class="container row gap-3">
-    {% for  tweet in tweets  %}
-    
-    <div class="card" style="width: 18rem;">
-  <img src="{{tweet.photo.url}}" class="card-img-top" alt="{{tweet.user.username}}">
-  <div class="card-body">
-    <h5 class="card-title">{{tweet.user.username}}</h5>
-    <p class="card-text">
-        {{tweet.text}}
-    </p>
-    {% if tweet.user == user %}
-    <a href="{% url "edit_tweet" tweet.id %}" class="btn btn-primary">Edit</a>
-    <a href="{% url "delete_tweet" tweet.id %}" class="btn btn-danger">Delete</a>
-    {% endif %}
-  </div>
-</div>
-    {% endfor %}
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for tweet in tweets %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ tweet.photo.url }}" class="card-img-top" alt="{{ tweet.user.username }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ tweet.user.username }}</h5>
+                    <p class="card-text">{{ tweet.text }}</p>
+                    {% if tweet.user == user %}
+                    <a href="{% url 'edit_tweet' tweet.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'delete_tweet' tweet.id %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
